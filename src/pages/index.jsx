@@ -37,7 +37,7 @@ const Home = () => {
       setTodo("");
       setHead("");
     } else {
-      alert("Enter valid title and body");
+      alert("Invalid title or body");
       setTodo("");
       setHead("");
     }
@@ -46,6 +46,7 @@ const Home = () => {
   function deleteTodo(id) {
     let updatedTextnotes = [...textnotes].filter((todo) => todo.id !== id);
     setTextnotes(updatedTextnotes);
+    localStorage.setItem("textnotes", JSON.stringify(updatedTextnotes));
   }
 
   function submitEdits(id) {
@@ -69,8 +70,8 @@ const Home = () => {
   return (
     <div className="main h-auto flex bg-slate-400 " id="todo-list">
       <div className="lhs md:pt-0 pt-2 bg-gray-800 w-1/3 px-4">
-        <h1 className="mainhead text-center py-5 md:p-5 text-black text-lg md:text-xl font-bold ">
-          New Note
+        <h1 className="mainhead text-center py-5 md:p-5 text-black text-xl md:text-3xl font-extrabold ">
+          Noties
         </h1>
         <form className="flex flex-col " onSubmit={handleSubmit}>
           <input
@@ -88,8 +89,11 @@ const Home = () => {
             onChange={(e) => setTodo(e.target.value)}
             value={todo}
           />
-          <button className="btn text-center p-2 rounded my-4" type="submit">
-            Add Note
+          <button
+            className="btn text-center md:text-base text-xs p-2 rounded my-4"
+            type="submit"
+          >
+            Add new Note
           </button>
         </form>
       </div>
