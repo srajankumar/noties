@@ -25,3 +25,41 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.todo {
+  background: #e8f9f3;
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  height: fit-content;
+  margin: 10px;
+}
+
+.lhs {
+  background: #d2e9cd;
+}
+
+.btn {
+  background: #1d231f;
+}
+
+.inp {
+  background: #1d231f1a;
+}
+
+.main {
+  min-height: 100vh;
+  height: auto;
+}
+
+.rhs {
+  background: #aed4c4;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1100px) {
+  .todo {
+    width: 60vw;
+  }
+}
