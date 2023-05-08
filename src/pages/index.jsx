@@ -37,7 +37,7 @@ const Home = () => {
       setTodo("");
       setHead("");
     } else {
-      alert("Enter Valid Task and Heading");
+      alert("Enter valid title and body");
       setTodo("");
       setHead("");
     }
@@ -67,14 +67,14 @@ const Home = () => {
   }
 
   return (
-    <div className="main flex bg-slate-400 " id="todo-list">
-      <div className="lhs bg-gray-800 w-1/3 px-4">
-        <h1 className="text-center p-5 text-black text-xl font-bold ">
+    <div className="main h-auto flex bg-slate-400 " id="todo-list">
+      <div className="lhs md:pt-0 pt-2 bg-gray-800 w-1/3 px-4">
+        <h1 className="mainhead text-center py-5 md:p-5 text-black text-lg md:text-xl font-bold ">
           New Note
         </h1>
         <form className="flex flex-col " onSubmit={handleSubmit}>
           <input
-            className="inp bg-black p-2 rounded text-black"
+            className="inp p-2 rounded text-black"
             type="text"
             placeholder="Title"
             onChange={(e) => setHead(e.target.value)}
@@ -82,26 +82,23 @@ const Home = () => {
           />
           <div className="p-1"></div>
           <textarea
-            className="inp textBody h-auto bg-black p-2 rounded text-black"
+            className="inp textBody h-auto p-2 rounded text-black"
             type="text"
             placeholder="Body"
             onChange={(e) => setTodo(e.target.value)}
             value={todo}
           />
-          <button
-            className="btn text-center p-2  rounded bg-gray-900 border-gray-950 my-4"
-            type="submit"
-          >
+          <button className="btn text-center p-2 rounded my-4" type="submit">
             Add Note
           </button>
         </form>
       </div>
 
-      <div className="rhs flex bg-slate-600  w-full p-16">
+      <div className="rhs flex flex-wrap bg-slate-600 w-full md:p-16 pt-10">
         {textnotes.map((todo) => (
           <div
             key={todo.id}
-            className="todo bg-slate-100 text-black p-5 max-w-screen"
+            className="todo rounded bg-slate-100 text-black p-5 max-w-screen"
           >
             <div className="todo-heading text-xl font-bold">
               {todo.id === todoEditing ? (
@@ -151,7 +148,7 @@ const Home = () => {
               )}
 
               <button
-                className="font-semibold"
+                className="font-semibold text-red-500"
                 onClick={() => deleteTodo(todo.id)}
               >
                 Delete
