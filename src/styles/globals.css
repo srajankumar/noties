@@ -26,7 +26,7 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-.todo {
+.note {
   background: #e8f9f3;
   display: flex;
   flex-direction: column;
@@ -56,7 +56,7 @@ body {
 }
 
 @media (max-width: 1100px) {
-  .todo {
+  .note {
     width: 60vw;
   }
 }

@@ -2,9 +2,9 @@ import React from "react";
 
 const Home = () => {
   const [textnotes, setTextnotes] = React.useState([]);
-  const [todo, setTodo] = React.useState("");
+  const [textNotes, setTextNotes] = React.useState("");
   const [head, setHead] = React.useState("");
-  const [todoEditing, setTodoEditing] = React.useState(null);
+  const [textNotesEditing, setTextNotesEditing] = React.useState(null);
   const [editingText, setEditingText] = React.useState("");
   const [editingHead, setEditingHead] = React.useState("");
 
@@ -26,49 +26,53 @@ const Home = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    const newTodo = {
+    const timestamp = new Date().toLocaleString();
+    const newTextNotes = {
       id: new Date().getTime(),
       heading: head.trim(),
-      text: todo.trim(),
+      text: textNotes.trim(),
       completed: false,
+      timestamp: timestamp,
     };
-    if (newTodo.text.length > 0 && newTodo.heading.length > 0) {
-      setTextnotes([...textnotes].concat(newTodo));
-      setTodo("");
+    if (newTextNotes.text.length > 0 && newTextNotes.heading.length > 0) {
+      setTextnotes([...textnotes].concat(newTextNotes));
+      setTextNotes("");
       setHead("");
     } else {
       alert("Invalid title or body");
-      setTodo("");
+      setTextNotes("");
       setHead("");
     }
   }
 
-  function deleteTodo(id) {
-    let updatedTextnotes = [...textnotes].filter((todo) => todo.id !== id);
+  function deleteTextNotes(id) {
+    let updatedTextnotes = [...textnotes].filter(
+      (textNotes) => textNotes.id !== id
+    );
     setTextnotes(updatedTextnotes);
     localStorage.setItem("textnotes", JSON.stringify(updatedTextnotes));
   }
 
   function submitEdits(id) {
-    const updatedTextnotes = [...textnotes].map((todo) => {
-      if (todo.id === id) {
-        todo.text = editingText;
-        todo.heading = editingHead;
+    const updatedTextnotes = [...textnotes].map((textNotes) => {
+      if (textNotes.id === id) {
+        textNotes.text = editingText;
+        textNotes.heading = editingHead;
       }
-      return todo;
+      return textNotes;
     });
     setTextnotes(updatedTextnotes);
-    setTodoEditing(null);
+    setTextNotesEditing(null);
   }
 
-  function handleEditClick(todo) {
-    setTodoEditing(todo.id);
-    setEditingText(todo.text);
-    setEditingHead(todo.heading);
+  function handleEditClick(textNotes) {
+    setTextNotesEditing(textNotes.id);
+    setEditingText(textNotes.text);
+    setEditingHead(textNotes.heading);
   }
 
   return (
-    <div className="main h-auto flex bg-slate-400 " id="todo-list">
+    <div className="main h-auto flex bg-slate-400 " id="note-list">
       <div className="lhs md:pt-0 pt-2 bg-gray-800 w-1/3 px-4">
         <h1 className="mainhead text-center py-5 md:p-5 text-black text-xl md:text-3xl font-extrabold ">
           Noties
@@ -86,8 +90,8 @@ const Home = () => {
             className="inp textBody h-auto p-2 rounded text-black"
             type="text"
             placeholder="Body"
-            onChange={(e) => setTodo(e.target.value)}
-            value={todo}
+            onChange={(e) => setTextNotes(e.target.value)}
+            value={textNotes}
           />
           <button
             className="btn text-center md:text-base text-xs p-2 rounded my-4"
@@ -99,13 +103,13 @@ const Home = () => {
       </div>
 
       <div className="rhs flex flex-wrap bg-slate-600 w-full md:p-16 pt-10">
-        {textnotes.map((todo) => (
+        {textnotes.map((textNotes) => (
           <div
-            key={todo.id}
-            className="todo rounded bg-slate-100 text-black p-5 max-w-screen"
+            key={textNotes.id}
+            className="note rounded bg-slate-100 text-black p-5 max-w-screen"
           >
-            <div className="todo-heading text-xl font-bold">
-              {todo.id === todoEditing ? (
+            <div className="note-heading text-xl font-bold">
+              {textNotes.id === textNotesEditing ? (
                 <input
                   type="text"
                   className="w-full bg-transparent text-gray-900 px-1 "
@@ -114,38 +118,42 @@ const Home = () => {
                   value={editingHead}
                 />
               ) : (
-                todo.heading
+                textNotes.heading
               )}
+            </div>
+            <div className="py-1" />
+            <div className="note-timestamp text-gray-500 text-xs">
+              {textNotes.timestamp}
             </div>
             <div className="py-2" />
             <hr />
             <div className="py-2" />
-            <div className="todo-text break-words">
-              {todo.id === todoEditing ? (
+            <div className="note-text break-words">
+              {textNotes.id === textNotesEditing ? (
                 <textarea
                   type="text"
                   className="w-full h-fit bg-transparent text-gray-900 px-1 "
-                  placeholder="Edit Todo"
+                  placeholder="Edit TextNotes"
                   onChange={(e) => setEditingText(e.target.value)}
                   value={editingText}
                 />
               ) : (
-                <div className="pb-3">{todo.text}</div>
+                <div className="pb-3">{textNotes.text}</div>
               )}
             </div>
 
-            <div className="flex justify-between todo-actions">
-              {todo.id === todoEditing ? (
+            <div className="flex justify-between textNotes-actions">
+              {textNotes.id === textNotesEditing ? (
                 <button
                   className="font-semibold"
-                  onClick={() => submitEdits(todo.id)}
+                  onClick={() => submitEdits(textNotes.id)}
                 >
                   Submit
                 </button>
               ) : (
                 <button
                   className="font-semibold"
-                  onClick={() => handleEditClick(todo)}
+                  onClick={() => handleEditClick(textNotes)}
                 >
                   Edit
                 </button>
@@ -153,7 +161,7 @@ const Home = () => {
 
               <button
                 className="font-semibold text-red-500"
-                onClick={() => deleteTodo(todo.id)}
+                onClick={() => deleteTextNotes(textNotes.id)}
               >
                 Delete
               </button>
