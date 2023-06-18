@@ -73,13 +73,13 @@ const Home = () => {
 
   return (
     <div className="main h-auto flex bg-slate-400 " id="note-list">
-      <div className="lhs md:pt-0 pt-2 bg-gray-800 w-1/3 px-4">
-        <h1 className="mainhead text-center py-5 md:p-5 text-black text-xl md:text-3xl font-extrabold ">
+      <div className="lhs md:pt-0 pt-2 w-1/3 px-4">
+        <h1 className="mainhead text-center py-5 md:p-5 text-[#efebe7] text-2xl font-bold ">
           Noties
         </h1>
         <form className="flex flex-col " onSubmit={handleSubmit}>
           <input
-            className="inp p-2 rounded text-black"
+            className="inp p-2 rounded border-0 text-[#efebe7]"
             type="text"
             placeholder="Title"
             onChange={(e) => setHead(e.target.value)}
@@ -87,7 +87,7 @@ const Home = () => {
           />
           <div className="p-1"></div>
           <textarea
-            className="inp textBody h-auto p-2 rounded text-black"
+            className="inp textBody h-auto p-2 rounded text-[#efebe7]"
             type="text"
             placeholder="Body"
             onChange={(e) => setTextNotes(e.target.value)}
@@ -106,7 +106,7 @@ const Home = () => {
         {textnotes.map((textNotes) => (
           <div
             key={textNotes.id}
-            className="note rounded bg-slate-100 text-black p-5 max-w-screen"
+            className="note rounded bg-slate-100 text-[#2a5d25] p-5 max-w-screen"
           >
             <div className="note-heading text-xl font-bold">
               {textNotes.id === textNotesEditing ? (
@@ -142,7 +142,7 @@ const Home = () => {
               )}
             </div>
 
-            <div className="flex justify-between textNotes-actions">
+            <div className="flex text-black justify-between textNotes-actions">
               {textNotes.id === textNotesEditing ? (
                 <button
                   className="font-semibold"
@@ -152,7 +152,7 @@ const Home = () => {
                 </button>
               ) : (
                 <button
-                  className="font-semibold"
+                  className="font-semibold text-gray-900"
                   onClick={() => handleEditClick(textNotes)}
                 >
                   Edit
